@@ -1,14 +1,14 @@
-import { useContext } from 'react';
-import { Store } from '../Store';
-import { Helmet } from 'react-helmet-async';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import MessageBox from '../components/MessageBox';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useContext } from "react";
+import { Store } from "../Store";
+import { Helmet } from "react-helmet-async";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import MessageBox from "../components/MessageBox";
+import ListGroup from "react-bootstrap/ListGroup";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function CartScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -19,16 +19,16 @@ export default function CartScreen() {
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
-      window.alert('Sorry. Product is out of stock');
+      window.alert("Sorry. Product is out of stock");
       return;
     }
     ctxDispatch({
-      type: 'CART_ADD_ITEM',
+      type: "CART_ADD_ITEM",
       payload: { ...item, quantity },
     });
   };
   const removeItemHandler = (item) => {
-    ctxDispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+    ctxDispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
 
   const checkoutHandler = async () => {
@@ -36,31 +36,33 @@ export default function CartScreen() {
     var name;
     var p;
     var q;
-    var email = document.getElementById('email').value;
-    var username = document.getElementById('username').value;
-    if (email != "" && username != "") {
-      document.getElementById('username');
-      cartItems.map(async (item) => (
-        //name = item.name,
-        name = item.name,
-        p = item.price,
-        q = item.quantity,
-        oneItem = { name: username, email: email, brand: name, quantity: q, price: p },
-        await axios.post("http://localhost:5000/", oneItem)
-      ));
-      window.alert('Thank you!');
-      cartItems.map((item) => (
-        removeItemHandler(item)
-      ));
-      document.getElementById('email').value = "";
-      document.getElementById('username').value = "";
+    var email = document.getElementById("email").value;
+    var username = document.getElementById("username").value;
+    if (email !== "" && username !== "") {
+      document.getElementById("username");
+      cartItems.map(
+        async (item) => (
+          (name = item.name)((p = item.price))((q = item.quantity))(
+            (oneItem = {
+              name: username,
+              email: email,
+              brand: name,
+              quantity: q,
+              price: p,
+            })
+          ),
+          await axios.post("http://localhost:5000/", oneItem)
+        )
+      );
+      window.alert("Thank you!");
+      cartItems.map((item) => removeItemHandler(item));
+      document.getElementById("email").value = "";
+      document.getElementById("username").value = "";
+    } else {
+      window.alert(
+        "You must fill both Name and Email fileds Please Try Again!"
+      );
     }
-    else {
-      window.alert('You must fill both Name and Email fileds Please Try Again!');
-    }
-
-
-
   };
 
   return (
@@ -85,8 +87,9 @@ export default function CartScreen() {
                         src={item.image}
                         alt={item.name}
                         className="img-fluid rounded img-thumbnail"
-                      ></img>{' '}
-                      <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                      ></img>{" "}
+                      {/* <Link to={`/product/${item.slug}`}>{item.name}</Link> */}
+                      <i>{item.name}</i>
                     </Col>
                     <Col md={3}>
                       <Button
@@ -97,8 +100,8 @@ export default function CartScreen() {
                         disabled={item.quantity === 1}
                       >
                         <i className="fas fa-minus-circle"></i>
-                      </Button>{' '}
-                      <span>{item.quantity}</span>{' '}
+                      </Button>{" "}
+                      <span>{item.quantity}</span>{" "}
                       <Button
                         variant="light"
                         onClick={() =>
@@ -130,7 +133,7 @@ export default function CartScreen() {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <h3>
-                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
+                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{" "}
                     items) : $
                     {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                   </h3>
@@ -138,9 +141,9 @@ export default function CartScreen() {
                 <ListGroup.Item>
                   <div className="d-grid">
                     <div>User Name:</div>
-                    <input id='username'></input>
+                    <input id="username"></input>
                     <div>Email:</div>
-                    <input id='email'></input>
+                    <input id="email"></input>
                     <br></br>
                     <Button
                       type="button"

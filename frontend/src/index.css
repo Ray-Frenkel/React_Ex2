@@ -13,8 +13,12 @@ main {
   flex: 1;
 }
 .btn-primary {
-  background-color: #f0c040;
-  color: #000000;
+  /* background-color: #55f04046;
+  color: #000000; */
+
+  background-color: rgba(109, 109, 110, 0.7);
+  color: white;
+   border-color: rgba(109, 109, 110, 0.7);
 }
 .products {
   display: flex;
