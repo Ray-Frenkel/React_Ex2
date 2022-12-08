@@ -46,7 +46,7 @@ export default function CartScreen() {
         p = item.price,
         q = item.quantity,
         oneItem = { name: username, email: email, brand: name, quantity: q, price: p },
-        await axios.post("http://localhost:5000/", oneItem)
+        await axios.post("http://localhost:5000/buynow", oneItem)
       ));
       window.alert('Thank you!');
       cartItems.map((item) => (
@@ -71,9 +71,9 @@ export default function CartScreen() {
       <Row>
         <Col md={8}>
           {cartItems.length === 0 ? (
-            <MessageBox>
-              Cart is empty. <Link to="/">Go Shopping</Link>
-            </MessageBox>
+            <div>
+              Cart is empty. <Link to="/">Go Back to see our Product!</Link>
+            </div>
           ) : (
             <ListGroup>
               {cartItems.map((item) => (

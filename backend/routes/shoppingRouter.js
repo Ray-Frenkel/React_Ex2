@@ -4,7 +4,7 @@ import data from '../data.js';
 
 const shoppingRouter = express.Router();
 
-shoppingRouter.post('/', async (req, res) => {//Post Request - On Buy Now - Get the information and send it to addShopping function in db.js 
+shoppingRouter.post('/buynow', async (req, res) => {//Post Request - On Buy Now - Get the information and send it to addShopping function in db.js 
     var brand = req.body.brand;
     var quantity = req.body.quantity;
     var price = req.body.price;
