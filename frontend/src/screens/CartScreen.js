@@ -36,33 +36,30 @@ export default function CartScreen() {
     var name;
     var p;
     var q;
-    var email = document.getElementById("email").value;
-    var username = document.getElementById("username").value;
-    if (email !== "" && username !== "") {
-      document.getElementById("username");
-      cartItems.map(
-        async (item) => (
-          (name = item.name)((p = item.price))((q = item.quantity))(
-            (oneItem = {
-              name: username,
-              email: email,
-              brand: name,
-              quantity: q,
-              price: p,
-            })
-          ),
-          await axios.post("http://localhost:5000/", oneItem)
-        )
-      );
-      window.alert("Thank you!");
-      cartItems.map((item) => removeItemHandler(item));
-      document.getElementById("email").value = "";
-      document.getElementById("username").value = "";
-    } else {
-      window.alert(
-        "You must fill both Name and Email fileds Please Try Again!"
-      );
+    var email = document.getElementById('email').value;
+    var username = document.getElementById('username').value;
+    if (email != "" && username != "") {
+      document.getElementById('username');
+      cartItems.map(async (item) => (
+        //name = item.name,
+        name = item.name,
+        p = item.price,
+        q = item.quantity,
+        oneItem = { name: username, email: email, brand: name, quantity: q, price: p },
+        await axios.post("http://localhost:5000/", oneItem)
+      ));
+      window.alert('Thank you!');
+      cartItems.map((item) => (
+        removeItemHandler(item)
+      ));
+      document.getElementById('email').value = "";
+      document.getElementById('username').value = "";
     }
+    else {
+      window.alert('You must fill both Name and Email fileds Please Try Again!');
+    }
+
+
   };
 
   return (
